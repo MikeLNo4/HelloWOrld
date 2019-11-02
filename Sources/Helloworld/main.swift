@@ -1,6 +1,5 @@
 class Pets {
     var name:String = ""
-    var age:Int = 0
 
     func feed(){
       print("\(name) has been fed.")
@@ -30,11 +29,15 @@ class Tamagotchi:Pets{
   var boredom:Int = 0
   var dirt:Int = 0
   var drowsiness:Int  = 0
+  var ageInDays:Double = 0
+  var age:Double? = 0
+  var timesSlept:Double = 0
 
 override init(name:String){
   super.init()
   self.name = name
-  boredom = 60
+  drowsiness = 100
+  ageInDays = 0
 }
 
   override func feed(){
@@ -85,7 +88,10 @@ override init(name:String){
       dirt += 10
       boredom += 20
       hunger += 20
-      drowsiness = 0
+      drowsiness -= 1
+      ageInDays += 1
+      age = ageInDays / 30
+      timesSlept += 1
     }
   }
   func check(){
@@ -93,19 +99,22 @@ override init(name:String){
     print("Dirt: \(dirt)")
     print("Boredom: \(boredom)")
     print("Drowsiness: \(drowsiness)")
+    print("AgeInDays: \(ageInDays)")
 
   if hunger>=60{print("\(name) is hungry.")}
   if dirt>=60{print("\(name) is dirty.")}
   if boredom>=60{print("\(name) is bored.")}
   if drowsiness>=60{print("\(name) is sleepty.")}
 }
+  func getAge(){
+    print("\(name) is \(age!) months old.")
+  }
 }
 
 var game = Tamagotchi(name:"Lulia")
 
-for i in 1 ... 2 {
+for i in 1 ... 30 {
   game.sleep()
-  game.feed()
-  game.clean()
   game.check()
 }
+game.getAge()
